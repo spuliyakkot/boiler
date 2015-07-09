@@ -2,7 +2,7 @@
   "version": "0.0.1",
   "private": true,
   "name": "boiler",
-  "description": "Boiler automation for NewCo stack",
+  "description": "Boiler automation",
   "repository": "https://github.com/angular/angular-phonecat",
   "license": "",
   "devDependencies": {
