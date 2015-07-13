@@ -1,10 +1,12 @@
 // Make sure to include the `ui.router` module as a dependency
-angular.module('uiRouterSample', [
+angular.module('boilerModule', [
   'uiRouterSample.contacts',
   'uiRouterSample.contacts.service',
   'uiRouterSample.utils.service',
-  'ui.router'
-  //,'ngAnimate'
+  'ui.router',
+  'ui.bootstrap',
+  'controllerModule',
+  'ngAnimate'
 ])
 
 .run(

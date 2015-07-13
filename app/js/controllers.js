@@ -2,8 +2,14 @@
 
 /* Controllers */
 
-var phonecatControllers = angular.module('phonecatControllers', []);
+//var phonecatControllers = angular.module('phonecatControllers', []);
+var appControllers = angular.module('controllerModule',[]);
 
+appControllers.controller('searchSpecController', ['$scope', 
+  function($scope){
+    $scope.hasTransactionId = true;
+}]);
+/*
 phonecatControllers.controller('PhoneListCtrl', ['$scope', '$http',
   function($scope, $http) {
     $http.get('phones/phones.json').success(function(data) {
@@ -24,3 +30,4 @@ phonecatControllers.controller('PhoneDetailCtrl', ['$scope', '$routeParams', '$h
       $scope.mainImageUrl = imageUrl;
     };
   }]);
+*/
