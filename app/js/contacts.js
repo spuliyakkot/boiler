@@ -1,5 +1,6 @@
-angular.module('uiRouterSample.contacts', [
-  'ui.router'
+angular.module('routerModule', [
+  'ui.router',
+  'controllerModule'
 ])
   
 .config(

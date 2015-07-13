@@ -9,7 +9,6 @@
       <script src="bower_components/angular/angular.js"></script>
       <script src="bower_components/angular-animate/angular-animate.js"></script>
       <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-      <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
       <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
       <script src="js/app.js"></script>
       <script src="js/contacts.js"></script>
@@ -21,6 +20,7 @@
     </head>
 
     <body>
+
       <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -31,49 +31,80 @@
               <li class="active"><a href="#">Home</a></li>
               <li><a href="#about">OSB logs</a></li>
               <li><a href="#contact">Order Monitoring</a></li>
-
             </ul>
-
           </div>
         </div>
       </nav>
 
       <div class="container-fluid">
-
         <div class="my-template">
          <div class="row">
           <div class="col-md-4 col-sm-4">
 
             <!-- search options -->
-            <div ng-controller="searchSpecController">
+            <div class="panel panel-default">
+              <div class="panel-body">
 
-              <label class="checkbox">
-                <input type="checkbox" ng-model="hasTransactionId">
-                Search with transaction id
-              </label>
+                <div ng-controller="searchSpecController">
 
-              <hr>
-              <div collapse="hasTransactionId">
-                <div class="well well-lg">Some content</div> 
-              </div>
-              <div collapse="!hasTransactionId">
+                  <label class="checkbox">
+                    <input type="checkbox" ng-model="hasTransactionId">
+                    Search with transaction Id
+                  </label>
+                 
+                  <div collapse="!hasTransactionId">
+                    <div class="well well-lg">
+
+                      <div class="form-group">
+                        <label>Transaction Id:</label>
+                        <input type="text" ng-model="fmwTransactionId" class="form-control">
+                      </div>
+
+                      <div class="form-group">
+                       <label>Partition date From:</label>
+                       <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="{{dateFormat}}" ng-model="partDtFr" is-open="dtOpenedFrom" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-default" ng-click="openFrom($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                      </p>
+                    </div>
+
+                    <div class="form-group">
+                       <label>Partition date To:</label>
+                       <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="{{dateFormat}}" ng-model="partDtTo" is-open="dtOpenedTo" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-default" ng-click="openTo($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                      </p>
+                    </div>
+
+                   <button type="submit" class="btn btn-primary" ng-click="searchWithTransactionId()">Search</button>
+
+                 </div> 
+               </div>
+               <div collapse="hasTransactionId">
                 <div class="well well-lg">Some other content</div> 
               </div>
             </div>
-            <!-- End search -->
 
           </div>
-          <div class="col-md-4 col-sm-4">One third</div>
-          <div class="col-md-4 col-sm-4">One third</div>
         </div>
-      </div>
+        <!-- End search -->
 
+      </div>
+      <div class="col-md-4 col-sm-4">One third</div>
+      <div class="col-md-4 col-sm-4">One third</div>
     </div>
+  </div>
+</div>
 
-    <footer class="footer">
-      <div class="container">
-        <p class="text-muted">NewCo Order Tools</p>
-      </div>
-    </footer>
-  </body>
-  </html>
+<footer class="footer">
+  <div class="container">
+    <p class="text-muted">NewCo Order Tools</p>
+  </div>
+</footer>
+
+</body>
+</html>
