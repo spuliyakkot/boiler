@@ -47,12 +47,14 @@ controller('searchSpecController', ['$scope', '$log',
     };
   }]);
 
-appControllers.controller('GridControl', ['$scope', '$http', function ($scope, $http) {
+appControllers.controller('GridControl', ['$scope', '$http', '$log', function ($scope, $http, $log) {
+
+  $scope.$log = $log;
   $scope.gridOptions = {
     enableSorting: true,
     columnDefs: [
-      { field: 'name', minWidth: 200, width: 250, enableColumnResizing: false },
-      { field: 'gender', width: '30%', maxWidth: 200, minWidth: 70 },
+      { field: 'name', minWidth: 200, width: '50%', enableColumnResizing: false },
+      { field: 'gender', width: '30%', minWidth: 70 },
       { field: 'company', width: '20%' }
     ]
   };

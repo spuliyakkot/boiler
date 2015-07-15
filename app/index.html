@@ -24,15 +24,14 @@
 
     <body>
 
-      <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
           <div class="navbar-header">
             <a class="navbar-brand" href="#">Boiler</a>
           </div>
           <div id="navbar">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">OSB logs</a></li>
+              <li><a href="#about" class="active">OSB logs</a></li>
               <li><a href="#contact">Order Monitoring</a></li>
             </ul>
           </div>
@@ -44,7 +43,7 @@
 
           <div class="row">
             <!-- search options -->
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
               <div class="panel-body">
                 <div ng-controller="searchSpecController">
                   <div class="col-md-3 col-sm-3">
@@ -118,16 +117,17 @@
 </div>
 
 <div class="row">
-  <div class="panel panel-default">
+  <div class="panel panel-primary">
     <div class="panel-body">
-     
-<div ng-controller="GridControl">
+     <div class="col-md-12 col-sm-12">
+      <div ng-controller="GridControl">
 
-  <div ui-grid="gridOptions" class="grid" ui-grid-resize-columns ui-grid-move-columns></div>
-</div>
-
+        <div ui-grid="gridOptions" class="grid" ui-grid-resize-columns ui-grid-move-columns></div>
+      </div>
     </div>
+
   </div>
+</div>
 </div>
 
 </div>

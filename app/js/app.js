@@ -5,7 +5,8 @@ angular.module('boilerModule', [
   'uiRouterSample.utils.service',
   'ui.router',
   'ui.bootstrap',
-  'ngAnimate'
+  'ngAnimate',
+  'ui.grid'
 ])
 
 .run(
