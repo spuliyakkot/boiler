@@ -5,6 +5,8 @@
 
       <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
       <link rel="stylesheet" type="text/css" href="css/app.css">
+      <link rel="stylesheet" type="text/css" href="css/ui-grid.css">
+
       <!--link rel="stylesheet" type="text/css" href="css/custom-styles.css"-->
       <script src="bower_components/angular/angular.js"></script>
       <script src="bower_components/angular-animate/angular-animate.js"></script>
@@ -15,6 +17,7 @@
       <script src="js/services.js"></script>
       <script src="js/utils-service.js"></script>
       <script src="js/controllers.js"></script>
+      <script src="js/ui-grid.js"></script>
 
       <title ng-bind="$state.current.name + ' - ui-router'">ui-router</title>
     </head>
@@ -38,73 +41,103 @@
 
       <div class="container-fluid">
         <div class="my-template">
-         <div class="row">
-          <div class="col-md-4 col-sm-4">
 
+          <div class="row">
             <!-- search options -->
             <div class="panel panel-default">
               <div class="panel-body">
-
                 <div ng-controller="searchSpecController">
-
-                  <label class="checkbox">
+                  <div class="col-md-3 col-sm-3">
+                   <div class="form-group" > 
                     <input type="checkbox" ng-model="hasTransactionId">
-                    Search with transaction Id
-                  </label>
-                 
-                  <div collapse="!hasTransactionId">
-                    <div class="well well-lg">
 
-                      <div class="form-group">
-                        <label>Transaction Id:</label>
-                        <input type="text" ng-model="fmwTransactionId" class="form-control">
-                      </div>
+                    <label>Search with transaction Id:</label>
+                    
+                    <input type="text" ng-model="fmwTransactionId" class="form-control" ng-disabled='!hasTransactionId'>
+                  </div>
+                  <button type="submit" class="btn btn-primary" ng-click="searchWithTransactionId()">Search</button>
 
-                      <div class="form-group">
-                       <label>Partition date From:</label>
-                       <p class="input-group">
-                        <input type="text" class="form-control" datepicker-popup="{{dateFormat}}" ng-model="partDtFr" is-open="dtOpenedFrom" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
-                        <span class="input-group-btn">
-                          <button type="button" class="btn btn-default" ng-click="openFrom($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                        </span>
-                      </p>
-                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                 <div class="form-group">
+                   <label>Partition date From:</label>
+                   <p class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="{{dateFormat}}" ng-model="partDtFr" is-open="dtOpenedFrom" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-default" ng-click="openFrom($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                  </p>
+                </div>
 
-                    <div class="form-group">
-                       <label>Partition date To:</label>
-                       <p class="input-group">
-                        <input type="text" class="form-control" datepicker-popup="{{dateFormat}}" ng-model="partDtTo" is-open="dtOpenedTo" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
-                        <span class="input-group-btn">
-                          <button type="button" class="btn btn-default" ng-click="openTo($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                        </span>
-                      </p>
-                    </div>
-
-                   <button type="submit" class="btn btn-primary" ng-click="searchWithTransactionId()">Search</button>
-
-                 </div> 
-               </div>
-               <div collapse="hasTransactionId">
-                <div class="well well-lg">Some other content</div> 
+                <div class="form-group">
+                 <label>Partition date To:</label>
+                 <p class="input-group">
+                  <input type="text" class="form-control" datepicker-popup="{{dateFormat}}" ng-model="partDtTo" is-open="dtOpenedTo" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="openTo($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
               </div>
             </div>
+            <div class="col-md-3 col-sm-3">
 
+              <div class="form-group">
+               <label>Creation date From:</label>
+               <p class="input-group">
+                <input type="text" class="form-control" datepicker-popup="{{dateFormat}}" ng-model="partDtFr" is-open="dtOpenedFrom" datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-disabled='hasTransactionId'/>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="openFrom($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </p>
+            </div>
+
+            <div class="form-group">
+             <label>Creation date To:</label>
+             <p class="input-group">
+              <input type="text" class="form-control" datepicker-popup="{{dateFormat}}" ng-model="partDtTo" is-open="dtOpenedTo" datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-disabled='hasTransactionId'/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="openTo($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
           </div>
-        </div>
-        <!-- End search -->
 
+        </div>
+        <div class="col-md-3 col-sm-3">
+         <div class="form-group">
+          <label>Process Name:</label>
+          <input type="text" ng-model="processName" typeahead="state for state in processNames | filter:$viewValue | limitTo:8" class="form-control" ng-disabled='hasTransactionId'>
+        </div>
+        <div class="form-group">
+          <label>Operation Name like:</label>
+          <input type="text" ng-model="operationName" class="form-control" ng-disabled='hasTransactionId'>
+        </div>
       </div>
-      <div class="col-md-4 col-sm-4">One third</div>
-      <div class="col-md-4 col-sm-4">One third</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-body">
+     
+<div ng-controller="GridControl">
+
+  <div ui-grid="gridOptions" class="grid" ui-grid-resize-columns ui-grid-move-columns></div>
+</div>
+
     </div>
   </div>
 </div>
 
+</div>
+</div>
+<!--
 <footer class="footer">
   <div class="container">
     <p class="text-muted">NewCo Order Tools</p>
   </div>
 </footer>
-
+-->
 </body>
 </html>

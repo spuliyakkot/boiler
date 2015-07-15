@@ -5,6 +5,9 @@ controller('searchSpecController', ['$scope', '$log',
   function($scope, $log){
     $scope.hasTransactionId = true;
     $scope.$log = $log;
+    $scope.processName = undefined;
+    $scope.processNames = ['GetEstimatedInvoiceSummary', 'GetCustomerPartyList', 'CrateSalesOrder', 'CustomerPartyEBSV1'];
+    $scope.operationName = '%%';
 
     $scope.dateOptions = {
       formatYear: 'yy',
@@ -43,6 +46,24 @@ controller('searchSpecController', ['$scope', '$log',
 
     };
   }]);
+
+appControllers.controller('GridControl', ['$scope', '$http', function ($scope, $http) {
+  $scope.gridOptions = {
+    enableSorting: true,
+    columnDefs: [
+      { field: 'name', minWidth: 200, width: 250, enableColumnResizing: false },
+      { field: 'gender', width: '30%', maxWidth: 200, minWidth: 70 },
+      { field: 'company', width: '20%' }
+    ]
+  };
+
+  $http.get('https://cdn.rawgit.com/angular-ui/ui-grid.info/gh-pages/data/100.json')
+    .success(function(data) {
+      $scope.gridOptions.data = data;
+    });
+}]);
+
+
 /*
 phonecatControllers.controller('PhoneListCtrl', ['$scope', '$http',
   function($scope, $http) {
